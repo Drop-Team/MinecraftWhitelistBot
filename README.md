@@ -1,0 +1,3 @@
+# MinecraftWhitelistBot
+
+Readme is in progress...
