@@ -1,0 +1,1 @@
+from .nicknames import Nickname
