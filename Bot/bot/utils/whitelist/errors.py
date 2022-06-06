@@ -8,4 +8,4 @@ class NicknameValidationError(Exception):
 
 class NicknameIsTakenError(Exception):
     def __init__(self):
-        super().__init__("Nickname is taken. Try another one.")
+        super().__init__("Nickname is already taken. Try another one.")

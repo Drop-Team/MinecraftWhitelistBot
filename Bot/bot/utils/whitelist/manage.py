@@ -20,6 +20,10 @@ async def add_nickname(nickname: str, owner_telegram_id: int) -> None:
     if not validate_nickname(nickname):
         raise NicknameValidationError
 
+    nicknames = await api.get_whitelist()
+    if any([nickname_data["name"].lower() == nickname.lower() for nickname_data in nicknames]):
+        raise NicknameIsTakenError
+
     session = create_session()
     new_nickname = Nickname(nickname=nickname, owner_telegram_id=owner_telegram_id)
     session.add(new_nickname)

@@ -8,11 +8,11 @@ request_headers = {
 }
 
 
-async def get_whitelist() -> None:
+async def get_whitelist() -> list[dict]:
     async with aiohttp.ClientSession() as session:
-        async with session.get(request_url, headers=request_headers) as response:
-            data = await response.json()
-            return data
+        response = await session.get(request_url, headers=request_headers)
+        data = await response.json()
+    return data
 
 
 async def add_nickname_to_whitelist(nickname: str) -> None:
