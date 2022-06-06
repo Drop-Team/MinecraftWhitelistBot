@@ -7,6 +7,10 @@ Telegram bot for managing the whitelist on the Minecraft server.
 - [About](#about)
 - [Used](#used)
 - [Deploy](#deploy)
+  - [Plugin](#plugin)
+  - [Environment](#environment)
+  - [Limits](#limits)
+  - [Docker](#docker)
 
 
 ## About
@@ -31,7 +35,7 @@ It is hosted at Innopolis University, so it uses [InnoID](https://github.com/Dro
 
 ### Environment
 
-1. Rename [.env-example](https://github.com/Drop-Team/InnoPrintBot/blob/main/.env-example) to `.env`.
+1. Rename [.env-example](https://github.com/Drop-Team/MinecraftWhitelistBot/blob/master/.env-example) to `.env`.
 2. Edit it:
 ```
 PROMETHEUS_PORT - Port where metrics for Prometheus are hosted
