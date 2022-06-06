@@ -33,7 +33,7 @@ async def go_to_nickname_callback(query: types.CallbackQuery, callback_data: dic
 
 async def delete_nickname_callback(query: types.CallbackQuery, callback_data: dict):
     manager = get_manager(query.message)
-    delete_nickname(callback_data["nickname"], query.message.chat.id)
+    await delete_nickname(callback_data["nickname"], query.message.chat.id)
     await query.answer("Nickname has been successfully deleted.")
     await manager.update_message()
 
@@ -56,7 +56,7 @@ async def get_changed_nickname(msg: types.Message, state: FSMContext):
     new_nickname = msg.text
 
     try:
-        change_nickname(old_nickname, new_nickname, msg.chat.id)
+        await change_nickname(old_nickname, new_nickname, msg.chat.id)
     except NicknameValidationError as e:
         return await msg.answer(e.args[0])
     except NicknameIsTakenError as e:

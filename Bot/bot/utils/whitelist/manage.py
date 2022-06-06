@@ -5,6 +5,7 @@ from bot.utils.database import create_session
 from bot.utils.database.models import Nickname
 from .errors import NicknameValidationError, NicknameIsTakenError
 from .helpers import validate_nickname
+from . import api
 
 
 def get_user_nicknames(owner_telegram_id: int) -> list[str]:
@@ -15,7 +16,7 @@ def get_user_nicknames(owner_telegram_id: int) -> list[str]:
     return nicknames
 
 
-def add_nickname(nickname: str, owner_telegram_id: int) -> None:
+async def add_nickname(nickname: str, owner_telegram_id: int) -> None:
     if not validate_nickname(nickname):
         raise NicknameValidationError
 
@@ -30,8 +31,10 @@ def add_nickname(nickname: str, owner_telegram_id: int) -> None:
     finally:
         session.close()
 
+    await api.add_nickname_to_whitelist(nickname)
 
-def delete_nickname(nickname: str, owner_telegram_id: int) -> None:
+
+async def delete_nickname(nickname: str, owner_telegram_id: int) -> None:
     if not validate_nickname(nickname):
         raise NicknameValidationError
 
@@ -39,11 +42,13 @@ def delete_nickname(nickname: str, owner_telegram_id: int) -> None:
     nickname_request = select(Nickname) \
         .where(Nickname.owner_telegram_id == owner_telegram_id) \
         .where(Nickname.nickname == nickname)
-    nickname = session.scalars(nickname_request).one()
-    session.delete(nickname)
+    nickname_object = session.scalars(nickname_request).one()
+    session.delete(nickname_object)
     session.commit()
 
+    await api.remove_nickname_from_whitelist(nickname)
 
-def change_nickname(old_nickname: str, new_nickname: str, owner_telegram_id: int) -> None:
-    add_nickname(new_nickname, owner_telegram_id)
-    delete_nickname(old_nickname, owner_telegram_id)
+
+async def change_nickname(old_nickname: str, new_nickname: str, owner_telegram_id: int) -> None:
+    await add_nickname(new_nickname, owner_telegram_id)
+    await delete_nickname(old_nickname, owner_telegram_id)

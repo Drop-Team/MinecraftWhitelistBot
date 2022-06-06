@@ -31,7 +31,7 @@ async def get_nickname(msg: types.Message, state: FSMContext):
     """Nickname handler"""
 
     try:
-        add_nickname(msg.text, msg.from_user.id)
+        await add_nickname(msg.text, msg.from_user.id)
     except NicknameValidationError as e:
         return await msg.answer(e.args[0])
     except NicknameIsTakenError as e:
