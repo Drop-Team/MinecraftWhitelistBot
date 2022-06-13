@@ -6,6 +6,6 @@ services:
     ports:
       - "${PROMETHEUS_PORT}:${PROMETHEUS_PORT}"
     volumes:
-      - ./Bot:/Bot
+      - ./Bot:/bot
     env_file:
       - .env
