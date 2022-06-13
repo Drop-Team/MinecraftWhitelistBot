@@ -51,7 +51,7 @@ WHITELIST_API_TOKEN - Token for authorization in plugin's API which has been con
 
 ### Limits
 
-[limits.json](https://github.com/Drop-Team/MinecraftWhitelistBot/blob/master/limits.json) is a file that stores limits of users on the number of nicknames available for creating or changing.
+[limits.json](https://github.com/Drop-Team/MinecraftWhitelistBot/blob/master/Bot/limits.json) is a file that stores limits of users on the number of nicknames available for creating or changing.
 
 ```
 123456789: 20  # User with Telegram ID 123456789 has a limit of 20 nicknames
