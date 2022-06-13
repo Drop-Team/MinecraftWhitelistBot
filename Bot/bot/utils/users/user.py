@@ -3,7 +3,7 @@ import os
 
 import aiohttp
 
-LIMITS_FILE_PATH = "../limits.json"
+LIMITS_FILE_PATH = "limits.json"
 
 
 class User:
