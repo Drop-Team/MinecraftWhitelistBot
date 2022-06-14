@@ -2,6 +2,7 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
+from bot.utils.logs.logger import logger
 from bot.utils.metrics.nicknames import nicknames_metrics_update
 from bot.utils.users.get_user import get_user
 from bot.utils.whitelist.errors import NicknameValidationError, NicknameIsTakenError
@@ -31,8 +32,10 @@ async def add_nickname_command(msg: types.Message):
 async def get_nickname(msg: types.Message, state: FSMContext):
     """Nickname handler"""
 
+    nickname = msg.text
+
     try:
-        await add_nickname(msg.text, msg.from_user.id)
+        await add_nickname(nickname, msg.from_user.id)
     except NicknameValidationError as e:
         return await msg.answer(e.args[0])
     except NicknameIsTakenError as e:
@@ -42,3 +45,5 @@ async def get_nickname(msg: types.Message, state: FSMContext):
     await msg.answer("Nickname has been successfully added. You can check it using /my_nicknames.")
 
     nicknames_metrics_update()
+
+    logger.info(f"User {msg.from_user.id} added nickname '{nickname}'")
