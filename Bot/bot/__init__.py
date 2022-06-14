@@ -11,6 +11,8 @@ async def on_startup(dispatcher: Dispatcher):
     bot_info = await bot.get_me()
     print(f"Logged in as {bot_info.full_name} ({bot_info.mention})")
 
+    metrics.start_time.set_to_current_time()
+
 
 def start():
     import bot.utils.database
