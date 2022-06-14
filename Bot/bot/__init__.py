@@ -17,8 +17,11 @@ async def on_startup(dispatcher: Dispatcher):
 def start():
     import bot.utils.database
 
+    from . import middlewares
     from . import filters
     from . import handlers
+
+    middlewares.setup(dp)
 
     filters.setup(dp)
 
