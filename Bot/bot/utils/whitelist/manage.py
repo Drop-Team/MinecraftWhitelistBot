@@ -3,9 +3,16 @@ from sqlalchemy.exc import IntegrityError
 
 from bot.utils.database import create_session
 from bot.utils.database.models import Nickname
+from . import api
 from .errors import NicknameValidationError, NicknameIsTakenError
 from .helpers import validate_nickname
-from . import api
+
+
+def get_all_nicknames() -> list[Nickname]:
+    session = create_session()
+    nicknames_request = select(Nickname)
+    nicknames_objects = session.scalars(nicknames_request).all()
+    return nicknames_objects
 
 
 def get_user_nicknames(owner_telegram_id: int) -> list[str]:

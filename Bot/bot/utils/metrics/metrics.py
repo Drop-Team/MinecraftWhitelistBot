@@ -14,3 +14,12 @@ callback_query_handlers = Counter(
 logs = Counter(
     "logs", "log records", ["name", "level"]
 )
+
+
+nicknames_count_total = Gauge(
+    "nicknames_count_total", "Nicknames count total"
+)
+
+users_count_by_nicknames_count = Gauge(
+    "users_count_by_nicknames_count",  "Users count grouped by nicknames count", ["nicknames"]
+)

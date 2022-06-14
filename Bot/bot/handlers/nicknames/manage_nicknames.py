@@ -2,6 +2,7 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
+from bot.utils.metrics.nicknames import nicknames_metrics_update
 from bot.utils.nicknames_manager.get_manager import get_manager
 from bot.utils.nicknames_manager.manager import NicknamesManager
 from bot.utils.nicknames_manager.states import NicknameState, ChangeNicknameState
@@ -36,6 +37,8 @@ async def delete_nickname_callback(query: types.CallbackQuery, callback_data: di
     await delete_nickname(callback_data["nickname"], query.message.chat.id)
     await query.answer("Nickname has been successfully deleted.")
     await manager.update_message()
+
+    nicknames_metrics_update()
 
 
 async def change_nickname_callback(query: types.CallbackQuery, callback_data: dict, state: FSMContext):

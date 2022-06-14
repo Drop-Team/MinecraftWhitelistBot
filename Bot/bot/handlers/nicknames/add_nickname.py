@@ -2,6 +2,7 @@ from aiogram import types
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
+from bot.utils.metrics.nicknames import nicknames_metrics_update
 from bot.utils.users.get_user import get_user
 from bot.utils.whitelist.errors import NicknameValidationError, NicknameIsTakenError
 from bot.utils.whitelist.manage import add_nickname
@@ -39,3 +40,5 @@ async def get_nickname(msg: types.Message, state: FSMContext):
 
     await state.finish()
     await msg.answer("Nickname has been successfully added. You can check it using /my_nicknames.")
+
+    nicknames_metrics_update()

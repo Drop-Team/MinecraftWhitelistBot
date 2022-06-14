@@ -13,6 +13,9 @@ async def on_startup(dispatcher: Dispatcher):
 
     metrics.start_time.set_to_current_time()
 
+    from bot.utils.metrics.nicknames import nicknames_metrics_update
+    nicknames_metrics_update()
+
 
 def start():
     import bot.utils.database
