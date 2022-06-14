@@ -6,6 +6,8 @@ from aiogram.utils import executor
 
 
 async def on_startup(dispatcher: Dispatcher):
+    from bot.utils.metrics import metrics
+
     bot_info = await bot.get_me()
     print(f"Logged in as {bot_info.full_name} ({bot_info.mention})")
 
